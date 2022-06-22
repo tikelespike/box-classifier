@@ -1,13 +1,13 @@
 from box_classifier import *
 
 if __name__ == '__main__':
-    # box_types = [Box("tall", 1, 9, 1), Box("wide", 3, 1, 3, 2)]
+    # box_types = [Box("tall", 100, 900, 100), Box("wide", 300, 100, 300, 200)]
     box_types = BoxReader(',').read_from_file('demoboxes.txt')
 
     allowed_deviation = 0.15
     classifier = BoxClassifier(box_types, allowed_deviation, use_weight=False)
 
-    boxes = [Box("kinda wide box", 2.9, 1.1, 3.08), Box("kinda tall box", 1.01, 8.8, 0.9), Box("weird cubic box", 5, 5, 5)]
+    boxes = [Box("kinda wide box", 290, 110, 308), Box("kinda tall box", 101, 880, 90), Box("weird cubic box", 500, 500, 500)]
     for box in boxes:
         result_type = classifier.classify(box)
         if result_type is None:
