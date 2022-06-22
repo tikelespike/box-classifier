@@ -34,3 +34,17 @@ class BoxClassifier:
             minErrType = box_type
 
         return minErrType
+
+class BoxReader:
+
+    def __init__(self, separator):
+        self.separator = separator
+
+    def readFromFile(self, path):
+        boxes = []
+        with open(path) as file:
+            lines = file.readlines()
+        for line in lines:
+            parts = line.split(self.separator)
+            boxes.append(Box(parts[0], int(parts[1]), int(parts[2]), int(parts[3])))
+        return boxes
