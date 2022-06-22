@@ -14,33 +14,33 @@ class BoxClassifier:
         self.max_relative_deviation = max_relative_deviation
 
     def classify(self, box):
-        dimensionsBox = [box.x, box.y, box.z]
-        dimensionsBox.sort()
-        errMin = float('inf')
-        minErrType = None
+        dimensions_box = [box.x, box.y, box.z]
+        dimensions_box.sort()
+        err_min = float('inf')
+        min_err_type = None
         for box_type in self.box_types:
-            dimensionsType = [box_type.x, box_type.y, box_type.z]
-            dimensionsType.sort()
-            errX = abs(dimensionsBox[0] - dimensionsType[0]) / dimensionsType[0]
-            errY = abs(dimensionsBox[1] - dimensionsType[1]) / dimensionsType[1]
-            errZ = abs(dimensionsBox[2] - dimensionsType[2]) / dimensionsType[2]
-            err = np.array([errX, errY, errZ])
+            dimensions_type = [box_type.x, box_type.y, box_type.z]
+            dimensions_type.sort()
+            err_x = abs(dimensions_box[0] - dimensions_type[0]) / dimensions_type[0]
+            err_y = abs(dimensions_box[1] - dimensions_type[1]) / dimensions_type[1]
+            err_z = abs(dimensions_box[2] - dimensions_type[2]) / dimensions_type[2]
+            err = np.array([err_x, err_y, err_z])
 
-            if errX > self.max_relative_deviation: continue
-            if errY > self.max_relative_deviation: continue
-            if errZ > self.max_relative_deviation: continue
+            if err_x > self.max_relative_deviation: continue
+            if err_y > self.max_relative_deviation: continue
+            if err_z > self.max_relative_deviation: continue
 
-            if np.linalg.norm(err) < errMin: errMin = err
-            minErrType = box_type
+            if np.linalg.norm(err) < err_min: err_min = err
+            min_err_type = box_type
 
-        return minErrType
+        return min_err_type
 
 class BoxReader:
 
     def __init__(self, separator):
         self.separator = separator
 
-    def readFromFile(self, path):
+    def read_from_file(self, path):
         boxes = []
         with open(path) as file:
             lines = file.readlines()
